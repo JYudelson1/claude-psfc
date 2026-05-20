@@ -14,7 +14,14 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import httpx
+from dotenv import find_dotenv, load_dotenv
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
+
+# Load env from the nearest .env walking up parent dirs, so secrets come from
+# the shared LocalServerApps/.env (PSFC_EMAIL, PSFC_PASSWORD, NTFY_TOPIC) rather
+# than a per-script copy. usecwd=True searches from the working dir, which
+# run_monitor.sh sets to this script's directory.
+load_dotenv(find_dotenv(usecwd=True))
 
 # =============================================================================
 # CONFIGURATION - Edit these values
