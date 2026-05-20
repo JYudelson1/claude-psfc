@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.psfc-monitor</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <!-- UPDATE THIS PATH to where you actually put the script -->
+        <string>cd ~/claude-psfc && ./run_monitor.sh >> ~/claude-psfc/monitor.log 2>&1</string>
+    </array>
+    
+    <!-- Run every 15 minutes -->
+    <key>StartInterval</key>
+    <integer>900</integer>
+    
+    <!-- Also run at specific times around midnight when slots might drop -->
+    <!-- Uncomment this section and comment out StartInterval if you prefer specific times -->
+    <!--
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict>
+            <key>Hour</key><integer>23</integer>
+            <key>Minute</key><integer>55</integer>
+        </dict>
+        <dict>
+            <key>Hour</key><integer>0</integer>
+            <key>Minute</key><integer>0</integer>
+        </dict>
+        <dict>
+            <key>Hour</key><integer>0</integer>
+            <key>Minute</key><integer>5</integer>
+        </dict>
+        <dict>
+            <key>Hour</key><integer>0</integer>
+            <key>Minute</key><integer>10</integer>
+        </dict>
+    </array>
+    -->
+    
+    <!-- Environment variables -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+        <!-- You can also set credentials here instead of .env file -->
+        <!-- <key>PSFC_EMAIL</key><string>your-email</string> -->
+        <!-- <key>PSFC_PASSWORD</key><string>your-password</string> -->
+        <!-- <key>NTFY_TOPIC</key><string>your-topic</string> -->
+    </dict>
+    
+    <!-- Run even when on battery -->
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <!-- Keep running after logout (if machine stays on) -->
+    <key>KeepAlive</key>
+    <false/>
+    
+    <!-- Standard output/error logs -->
+    <key>StandardOutPath</key>
+    <string>/tmp/psfc-monitor.out</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/psfc-monitor.err</string>
+</dict>
+</plist>
