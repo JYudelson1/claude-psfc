@@ -13,4 +13,4 @@ if [ -f .env ]; then
 fi
 
 # Run the monitor
-uv run monitor.py
+uv run monitor.py >> monitor.log 2>&1
